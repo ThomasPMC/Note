@@ -1,0 +1,29 @@
+name: Daily Lead Processing
+
+# Déclenchement du workflow à minuit tous les jours (UTC)
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Cette ligne planifie l'exécution tous les jours à minuit (en UTC)
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest  # Utilise une machine virtuelle Ubuntu pour exécuter le job
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2  # Cette étape permet de cloner votre dépôt
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'  # Spécifiez la version de Python, ici 3.11
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pytz  # Installer les dépendances nécessaires à votre script
+
+    - name: Run Lead Processing Script
+      env:
+        API_TOKEN: ${{ secrets.PIPEDRIVE_API_TOKEN }}  # Utiliser le secret pour votre API token
+      run: |
+        python your_script.py  # Remplacez par le nom de votre fichier Python
