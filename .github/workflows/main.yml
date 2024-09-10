@@ -26,4 +26,4 @@ jobs:
       env:
         API_TOKEN: ${{ secrets.PIPEDRIVE_API_TOKEN }}  # Utiliser le secret pour votre API token
       run: |
-        python summary.py  # Remplacez par le nom de votre fichier Python
+        python Summary.py  # Remplacez par le nom de votre fichier Python
